@@ -10,7 +10,7 @@ export const SocketProvider = ({ children }) => {
   const { auth } = useAuth();
 
   useEffect(() => {
-    if (auth?.token) {
+    if (auth?.token) { 
       const s = createSocket(auth.token);
       setSocket(s);
 

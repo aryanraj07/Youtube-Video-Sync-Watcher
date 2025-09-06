@@ -53,22 +53,22 @@ export default function VideoPlayer({ videoUrl, roomId }) {
 
   return (
     <div className="p-4">
-      <div className="mb-2">
+      <div className="mb-4 d-flex gap-2">
         <button
           onClick={() => sendControl("play")}
-          className="mr-2 px-3 py-1 bg-blue-500 text-white"
+          className=" px-3 py-1 btn btn-success"
         >
           Play
         </button>
         <button
           onClick={() => sendControl("pause")}
-          className="mr-2 px-3 py-1 bg-gray-300"
+          className=" px-3 py-1 btn btn-danger"
         >
           Pause
         </button>
         <button
           onClick={() => sendControl("seek")}
-          className="px-3 py-1 bg-yellow-300"
+          className="px-3 py-1 btn btn-primary"
         >
           Sync
         </button>

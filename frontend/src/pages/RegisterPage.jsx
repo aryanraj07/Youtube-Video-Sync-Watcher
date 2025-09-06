@@ -49,93 +49,118 @@ const RegisterPage = () => {
     }
   };
   return (
-    <section className="container">
-      <h1>Register Page</h1>
-      <form onSubmit={handleSubmit} encType="multipart/formdata">
-        <div className="mb-3">
-          <label htmlFor="username" className="form-label">
-            Username
-          </label>
-          <input
-            name="username"
-            type="text"
-            className="form-control"
-            id="username"
-            value={user.username}
-            onChange={handleChange}
-            aria-describedby="username"
-          />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="fullName" className="form-label">
-            FullName
-          </label>
-          <input
-            name="fullName"
-            type="text"
-            className="form-control"
-            id="fullName"
-            value={user.fullName}
-            onChange={handleChange}
-          />
-        </div>
+    <section className="container min-h-screen flex justify-center items-center">
+      <div className="w-full max-w-md">
+        <h1 className="text-3xl font-bold text-center mb-6 text-slate-400 ">
+          Register Page
+        </h1>
+        <form onSubmit={handleSubmit} encType="multipart/formdata">
+          <div className="mb-3">
+            <label
+              htmlFor="username"
+              className="block text-slate-400 font-medium text-sm mb-1"
+            >
+              Username
+            </label>
+            <input
+              name="username"
+              type="text"
+              className="w-full border  focus:outline-none rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500"
+              id="username"
+              value={user.username}
+              onChange={handleChange}
+              aria-describedby="username"
+            />
+          </div>
+          <div className="mb-3">
+            <label
+              htmlFor="fullName"
+              className="block text-sm font-medium mb-1 text-slate-400"
+            >
+              FullName
+            </label>
+            <input
+              name="fullName"
+              type="text"
+              className="w-full border px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 "
+              id="fullName"
+              value={user.fullName}
+              onChange={handleChange}
+            />
+          </div>
 
-        <div className="mb-3">
-          <label htmlFor="email" className="form-label">
-            Email
-          </label>
-          <input
-            name="email"
-            type="email"
-            className="form-control"
-            id="email"
-            value={user.email}
-            onChange={handleChange}
-            aria-describedby="email"
-          />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="password" className="form-label">
-            Password
-          </label>
-          <input
-            name="password"
-            type="password"
-            className="form-control"
-            id="password"
-            value={user.password}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="avatar" className="form-label">
-            Profile Avatar
-          </label>
-          <input
-            name="avatar"
-            type="file"
-            className="form-control"
-            id="avatar"
-            onChange={handleFileChange}
-          />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="cover-image" className="form-label">
-            Cover Image
-          </label>
-          <input
-            name="coverImage"
-            type="file"
-            className="form-control"
-            id="cover-image"
-            onChange={handleFileChange}
-          />
-        </div>
+          <div className="mb-3">
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium mb-1 text-slate-400"
+            >
+              Email
+            </label>
+            <input
+              name="email"
+              type="email"
+              className="w-full border px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 "
+              id="email"
+              value={user.email}
+              onChange={handleChange}
+              aria-describedby="email"
+            />
+          </div>
+          <div className="mb-3">
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium mb-1 text-slate-400"
+            >
+              Password
+            </label>
+            <input
+              name="password"
+              type="password"
+              className="w-full border px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 "
+              id="password"
+              value={user.password}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="mb-3">
+            <label
+              htmlFor="avatar"
+              className="fblock text-sm font-medium mb-1 text-slate-400"
+            >
+              Profile Avatar
+            </label>
+            <input
+              name="avatar"
+              type="file"
+              className="w-full border px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 "
+              id="avatar"
+              onChange={handleFileChange}
+            />
+          </div>
+          <div className="mb-3">
+            <label
+              htmlFor="cover-image"
+              className="block text-sm font-medium mb-1 text-slate-400"
+            >
+              Cover Image
+            </label>
+            <input
+              name="coverImage"
+              type="file"
+              className="w-full border px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 "
+              id="cover-image"
+              onChange={handleFileChange}
+            />
+          </div>
 
-        <button type="submit" className="btn btn-primary">
-          Submit
-        </button>
-      </form>
+          <button
+            type="submit"
+            className="w-full bg-indigo-500 rounded-lg py-3 font-semibold hover:bg-indigo-700 transition duration-300"
+          >
+            Register
+          </button>
+        </form>
+      </div>
     </section>
   );
 };

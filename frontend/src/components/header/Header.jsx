@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import api from "../../api/axiosInstance";
-
+import { FaUser } from "react-icons/fa";
 const Header = () => {
   const { auth, setAuth } = useAuth();
+  const [open, setOpen] = useState(false);
 
   const navigate = useNavigate();
   const handleLogout = async () => {
@@ -13,106 +14,73 @@ const Header = () => {
     } catch (error) {
       console.error("Logout failed:", error);
     }
-    setAuth(null);
+    setAuth({ user: null, auth: null, isLoggedIn: false });
     localStorage.removeItem("auth");
     navigate("/");
   };
 
   return (
-    <nav
-      className="navbar navbar-expand-lg bg-body-tertiary"
-      data-bs-theme="dark"
-    >
-      <div className="container-fluid">
-        {/* Brand */}
-        <Link className="navbar-brand" to="/">
-          Chat App
-        </Link>
+    <nav className="container mx-auto flex items-center justify-between p-4 ">
+      <div className="logo text-violet-600 font-bold text-2xl">Chat App</div>
 
-        {/* Mobile Toggle */}
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon" />
-        </button>
+      <ul className="flex gap-3 items-center">
+        <li className="nav-link">
+          <Link to="/">Home</Link>
+        </li>
+        <li className="nav-link">
+          <Link to="/">Chat</Link>
+        </li>
+        <li className="nav-link">
+          <Link to="/">Watch</Link>
+        </li>
+        <div className="relative">
+          {/* Avatar button */}
+          <button
+            onClick={() => setOpen(!open)}
+            className="flex items-center gap-2 p-2 rounded-full hover:bg-gray-700 transition"
+          >
+            <FaUser size={20} />
+          </button>
 
-        {/* Navbar Content */}
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-            {/* Always visible */}
-            <li className="nav-item">
-              <Link className="nav-link" to="/">
-                Home
-              </Link>
-            </li>
-
-            {/* If NOT logged in */}
-            {!auth?.user ? (
-              <>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/register">
-                    Register
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/login">
+          {/* Dropdown menu */}
+          {open && (
+            <ul className="absolute right-0 mt-2 w-40 bg-gray-800 text-white rounded shadow-lg z-50">
+              {auth?.isLoggedIn ? (
+                <>
+                  <li
+                    className="px-4 py-2 hover:bg-gray-700 cursor-pointer"
+                    onClick={() => navigate("/dashboard")}
+                  >
+                    Dashboard
+                  </li>
+                  <li
+                    className="px-4 py-2 hover:bg-gray-700 cursor-pointer"
+                    onClick={handleLogout}
+                  >
+                    Logout
+                  </li>
+                </>
+              ) : (
+                <>
+                  <li
+                    className="px-4 py-2 hover:bg-gray-700 cursor-pointer"
+                    onClick={() => navigate("/login")}
+                  >
                     Login
-                  </Link>
-                </li>
-              </>
-            ) : (
-              <>
-                <li className="nav-item dropdown">
-                  <button
-                    className="nav-link dropdown-toggle btn btn-link p-0"
-                    id="navbarDropdown"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
+                  </li>
+                  <li
+                    className="px-4 py-2 hover:bg-gray-700 cursor-pointer"
+                    onClick={() => navigate("/register")}
                   >
-                    {auth.user.fullName}
-                  </button>
-                  <ul
-                    className="dropdown-menu"
-                    aria-labelledby="navbarDropdown"
-                  >
-                    <li>
-                      <Link className="dropdown-item" to="/profile">
-                        Profile
-                      </Link>
-                    </li>
-                    <li>
-                      <Link className="dropdown-item" to="/settings">
-                        Settings
-                      </Link>
-                    </li>
-                    <li>
-                      <hr className="dropdown-divider" />
-                    </li>
-                    <li>
-                      <button onClick={handleLogout} className="dropdown-item">
-                        Logout
-                      </button>
-                    </li>
-                    <li>
-                      <Link className="dropdown-item" to="/dashboard">
-                        Dashboard
-                      </Link>
-                    </li>
-                  </ul>
-                </li>
-              </>
-            )}
-          </ul>
+                    Register
+                  </li>
+                </>
+              )}
+            </ul>
+          )}
         </div>
-      </div>
+      </ul>
     </nav>
   );
 };
-
 export default Header;

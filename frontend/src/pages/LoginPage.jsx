@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-
+import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import api from "../api/axiosInstance";
 import { useAuth } from "../context/AuthContext";
+import { FaEyeSlash } from "react-icons/fa";
 const LoginPage = () => {
   const { setAuth } = useAuth();
   const [user, setUser] = useState({
@@ -21,20 +22,21 @@ const LoginPage = () => {
       const res = await api.post("/users/login", user, {
         withCredentials: true,
       });
-      console.log(res);
-      console.log(res.data?.data?.accessToken);
 
+      toast.success("User logged in successfully");
       setAuth({
         user: res.data?.data?.user,
         token: res.data?.data?.accessToken,
+        isLoggedIn: true,
       });
       const newAuth = {
         user: res.data?.data?.user,
         token: res.data?.data?.accessToken,
       };
       localStorage.setItem("auth", JSON.stringify(newAuth));
-
-      navigate("/dashboard");
+      setTimeout(() => {
+        navigate("/dashboard");
+      }, 2000);
     } catch (err) {
       console.log(err);
 
@@ -46,55 +48,78 @@ const LoginPage = () => {
     }
   };
   return (
-    <section className="container">
-      <h1>Login Form</h1>
-      <form onSubmit={handleLogin} encType="multipart/formdata">
-        <div className="mb-3">
-          <label htmlFor="username" className="form-label">
-            Username
-          </label>
-          <input
-            name="username"
-            type="text"
-            className="form-control"
-            id="username"
-            value={user.username}
-            onChange={handleChange}
-            aria-describedby="username"
-          />
-        </div>
+    <section className="min-h-screen flex items-center justify-center  px-4">
+      <div className="w-full max-w-md rounded-2xl shadow-lg p-8">
+        <h1 className="text-3xl font-bold text-center mb-6 text-slate-400">
+          Login Form
+        </h1>
+        <form onSubmit={handleLogin} className="space-y-5">
+          {/* Username */}
+          <div>
+            <label
+              htmlFor="username"
+              className="block text-sm font-medium text-slate-400 mb-1"
+            >
+              Username
+            </label>
+            <input
+              name="username"
+              type="text"
+              id="username"
+              value={user.username}
+              onChange={handleChange}
+              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            />
+          </div>
 
-        <div className="mb-3">
-          <label htmlFor="email" className="form-label">
-            Email
-          </label>
-          <input
-            name="email"
-            type="email"
-            className="form-control"
-            id="email"
-            value={user.email}
-            onChange={handleChange}
-            aria-describedby="email"
-          />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="password" className="form-label">
-            Password
-          </label>
-          <input
-            name="password"
-            type="password"
-            className="form-control"
-            id="password"
-            value={user.password}
-            onChange={handleChange}
-          />
-        </div>
-        <button type="submit" className="btn btn-primary">
-          Submit
-        </button>
-      </form>
+          {/* Email */}
+          <div>
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-slate-400 mb-1"
+            >
+              Email
+            </label>
+            <input
+              name="email"
+              type="email"
+              id="email"
+              value={user.email}
+              onChange={handleChange}
+              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            />
+          </div>
+
+          {/* Password */}
+          <div>
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-slate-400 mb-1"
+            >
+              Password
+            </label>
+            <input
+              name="password"
+              type="password"
+              id="password"
+              value={user.password}
+              onChange={handleChange}
+              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 relative "
+            />
+            <div className="absolute right-2 bottom-2">
+              <FaEyeSlash />
+            </div>
+          </div>
+
+          {/* Submit Button */}
+          <button
+            type="submit"
+            className="w-full py-3 bg-indigo-600 text-white font-semibold rounded-lg  hover:bg-indigo-700 transition duration-300 shadow-md"
+          >
+            Login
+          </button>
+        </form>
+      </div>
     </section>
   );
 };

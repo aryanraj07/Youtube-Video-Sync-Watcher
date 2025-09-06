@@ -13,6 +13,9 @@ export default function PrivateRoute({ children }) {
         await api.get("/users/check"); // backend endpoint jo sirf logged-in user ke liye chale
         setIsAuth(true);
       } catch (err) {
+        console.log("Erro hai");
+
+        console.error("Auth failed:", err.response?.data || err.message);
         setIsAuth(false);
       } finally {
         setLoading(false);

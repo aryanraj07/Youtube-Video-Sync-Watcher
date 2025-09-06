@@ -5,6 +5,7 @@ const AuthProvider = ({ children }) => {
   const [auth, setAuth] = useState({
     user: null,
     auth: null,
+    isLoggedIn: false,
   });
   useEffect(() => {
     const auth = JSON.parse(localStorage.getItem("auth"));
